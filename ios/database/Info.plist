@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>database</string>
+	<string>Haritam</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -31,8 +31,12 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Lütfen harita üzerinden Konumunu Göstermek için izin veriniz..</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Lütfen harita üzerinden Konumunu Göstermek için izin veriniz..</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Lütfen harita üzerinden Konumunu Göstermek için izin veriniz..</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

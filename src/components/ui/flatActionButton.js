@@ -6,10 +6,14 @@ import {ADDNOTE, EDİTNOTE, SELECETCORDİNATE} from '../../utils/routes';
 const {width, height} = Dimensions.get('window');
 
 const FlatActionButton = props => {
-  const {navigation} = props;
+  const {navigation, currentPosition} = props;
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(SELECETCORDİNATE)}
+      onPress={() =>
+        navigation.navigate(SELECETCORDİNATE, {
+          currentPosition: currentPosition,
+        })
+      }
       style={{
         width: width * 0.18,
         height: height * 0.08,

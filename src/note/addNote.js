@@ -12,7 +12,6 @@ const AddNote = ({route}) => {
   const [descriptions, setDescription] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  console.log(title);
 
   const handeSaveNote = () => {
     setLoading(true);

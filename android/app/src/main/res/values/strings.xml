@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">database</string>
-     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">(AIzaSyBtcVNgGksR13uIUNhNkjnIIuAngwOTcN0)</string>
+    <string name="app_name">Haritam</string>
 </resources>

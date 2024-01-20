@@ -1,26 +1,33 @@
 import {
+  ActivityIndicator,
+  Alert,
   Dimensions,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Geolocation from '@react-native-community/geolocation';
 import React, {useEffect, useState} from 'react';
 import {AppColors} from '../../thema/appColor';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {Map, Notepad2} from 'iconsax-react-native';
+import {Map, Notepad2, Text} from 'iconsax-react-native';
 import {ADDNOTE, NOTELİST} from '../../utils/routes';
 import FlatActionButton from '../../components/ui/flatActionButton';
 import CostumeMarker from '../../components/maps/costume-marker';
 import firestore from '@react-native-firebase/firestore';
-// Firebase'ı başlat
+
+import LottieView from 'lottie-react-native';
+import CostumeAnimation from '../../components/ui/animation';
+
 const {width, height} = Dimensions.get('window');
 
 export default function HomeScreen(props) {
   const {navigation} = props;
   const [mapTypes, setMapType] = useState('hybrid');
   const [notes, setNotes] = useState([]);
-
+  const [visible, setVisible] = useState(false);
+  const [currentPosition, setCurrentPossition] = useState(null);
   const changeMapType = () => {
     try {
       if (mapTypes === 'standard') setMapType('hybrid');
@@ -29,9 +36,6 @@ export default function HomeScreen(props) {
       console.error('MapType değiştirilirken hata oluştu:', error);
     }
   };
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
   const getNotes = async () => {
     setVisible(true);
     firestore()
@@ -56,8 +60,20 @@ export default function HomeScreen(props) {
         setVisible(false);
       });
   };
+
+  const getCurrentPosition = () => {
+    Geolocation.getCurrentPosition(
+      pos => {
+        setCurrentPossition(pos.coords);
+        getNotes();
+      },
+      error => Alert.alert('GetCurrentPosition Error', JSON.stringify(error)),
+      {enableHighAccuracy: true},
+    );
+  };
+
   useEffect(() => {
-    getNotes();
+    getCurrentPosition();
   }, []);
   return (
     <View style={{flex: 1}}>
@@ -115,28 +131,42 @@ export default function HomeScreen(props) {
           <Map size={40} color={AppColors.BLACK} />
         </TouchableOpacity>
       </View>
-      <MapView
-        mapType={mapTypes}
-        zoomControlEnabled={false}
-        initialRegion={{
-          latitude: 38.809948122364716,
-          longitude: 35.90052000000003,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        // provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        style={styles.map}>
-        {notes.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={marker.region}
-            title={marker.title}
-            description={marker.description}>
-            <CostumeMarker />
-          </Marker>
-        ))}
-      </MapView>
-      <FlatActionButton {...props} />
+      {currentPosition && (
+        <MapView
+          mapType={mapTypes}
+          zoomControlEnabled={true}
+          initialRegion={{
+            latitude: currentPosition?.latitude,
+            longitude: currentPosition?.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          // provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+          style={styles.map}>
+          {notes.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={marker.region}
+              title={marker.title}
+              description={marker.description}>
+              <CostumeMarker />
+            </Marker>
+          ))}
+          {currentPosition && (
+            <Marker
+              coordinate={{
+                latitude: currentPosition?.latitude,
+                longitude: currentPosition?.longitude,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}>
+              <CostumeAnimation />
+            </Marker>
+          )}
+        </MapView>
+      )}
+
+      <FlatActionButton currentPosition={currentPosition} {...props} />
     </View>
   );
 }
@@ -146,7 +176,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: AppColors.BLACK,
     ...StyleSheet.absoluteFillObject,
   },
   map: {

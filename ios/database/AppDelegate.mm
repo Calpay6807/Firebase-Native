@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
 #import <Firebase.h>
 #import <React/RCTBundleURLProvider.h>
-#import <GoogleMaps/GoogleMaps.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -14,7 +14,7 @@
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
-[GMSServices provideAPIKey:@"AIzaSyBtcVNgGksR13uIUNhNkjnIIuAngwOTcN0"];
+
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
   return [self getBundleURL];

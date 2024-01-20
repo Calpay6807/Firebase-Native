@@ -7,9 +7,11 @@ import {Map, ArrowCircleRight2} from 'iconsax-react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ADDNOTE} from '../../utils/routes';
 import {AppColors} from '../../thema/appColor';
+import CostumeAnimation from '../../components/ui/animation';
 
 // create a component
 const SelectCordinate = ({route}) => {
+  const {currentPosition} = route?.params;
   const navigation = useNavigation();
   const [coordinate, setCordinate] = useState(null);
   const [mapType, setMapType] = useState('standard');
@@ -88,14 +90,23 @@ const SelectCordinate = ({route}) => {
           style={styles.map}
           onPress={handleMarkerPress}
           initialRegion={{
-            latitude: 38.809948122364716,
-            longitude: 35.90052000000003,
+            latitude: currentPosition?.latitude,
+            longitude: currentPosition?.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}>
           {coordinate && (
             <Marker coordinate={coordinate} title="Seçilen Konum" />
           )}
+          <Marker
+            coordinate={{
+              latitude: currentPosition?.latitude,
+              longitude: currentPosition?.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}>
+            <CostumeAnimation />
+          </Marker>
         </MapView>
       </View>
     </SafeAreaView>
