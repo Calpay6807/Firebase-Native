@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import React from 'react';
 import {AppColors} from '../../thema/appColor';
-import {Smileys, TextItalic, Ticket2} from 'iconsax-react-native';
+import {Smileys, Ticket2} from 'iconsax-react-native';
 
 const CostumeInputText = ({value, placeHolder, onChangeText}) => {
   return (

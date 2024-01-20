@@ -1,13 +1,5 @@
-import {
-  ActivityIndicator,
-  Button,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ActivityIndicator, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {color} from 'framer-motion';
 import {AppColors} from '../../thema/appColor';
 
 const CostumeButton = props => {

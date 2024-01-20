@@ -2,7 +2,7 @@ import {Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Additem} from 'iconsax-react-native';
 import {AppColors} from '../../thema/appColor';
-import {ADDNOTE, EDİTNOTE, SELECETCORDİNATE} from '../../utils/routes';
+import {SELECETCORDİNATE} from '../../utils/routes';
 const {width, height} = Dimensions.get('window');
 
 const FlatActionButton = props => {

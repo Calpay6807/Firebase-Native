@@ -9,9 +9,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import NoteCard from '../components/notes/noteCard';
 import FlatActionButton from '../components/ui/flatActionButton';
-import {notes} from '../utils/mockData';
 import firestore from '@react-native-firebase/firestore';
-import CostumeAnimation from '../components/ui/animation';
 
 const NoteList = props => {
   const [notes, setNotes] = useState([]);

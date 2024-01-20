@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   Alert,
   Dimensions,
   StatusBar,
@@ -11,13 +10,11 @@ import Geolocation from '@react-native-community/geolocation';
 import React, {useEffect, useState} from 'react';
 import {AppColors} from '../../thema/appColor';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {Map, Notepad2, Text} from 'iconsax-react-native';
-import {ADDNOTE, NOTELİST} from '../../utils/routes';
+import {Map, Notepad2} from 'iconsax-react-native';
+import {NOTELİST} from '../../utils/routes';
 import FlatActionButton from '../../components/ui/flatActionButton';
 import CostumeMarker from '../../components/maps/costume-marker';
 import firestore from '@react-native-firebase/firestore';
-
-import LottieView from 'lottie-react-native';
 import CostumeAnimation from '../../components/ui/animation';
 
 const {width, height} = Dimensions.get('window');
@@ -134,13 +131,14 @@ export default function HomeScreen(props) {
       {currentPosition && (
         <MapView
           mapType={mapTypes}
-          zoomControlEnabled={true}
+          zoomControlEnabled={false}
           initialRegion={{
             latitude: currentPosition?.latitude,
             longitude: currentPosition?.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
+          // iosda düzüngün çalışmadığı için kapalı
           // provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}>
           {notes.map((marker, index) => (

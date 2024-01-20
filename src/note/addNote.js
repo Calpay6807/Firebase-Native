@@ -1,5 +1,5 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
-import React, {Component, useState} from 'react';
+import {Alert, StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
 import CostumeInputText from '../components/ui/textInput';
 import CostumeButton from '../components/ui/costumeButton';
 import firestore from '@react-native-firebase/firestore';
